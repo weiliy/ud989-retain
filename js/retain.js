@@ -20,7 +20,8 @@ $(function(){
     var octopus = {
         addNewNote: function(noteStr) {
             model.add({
-                content: noteStr
+                content: noteStr,
+                date: Date.now()
             });
             view.render();
         },
@@ -50,9 +51,12 @@ $(function(){
         },
         render: function(){
             var htmlStr = '';
+            var date;
             octopus.getNotes().forEach(function(note){
+                date = new Date(note.date);
                 htmlStr += '<li class="note">'+
-                        note.content +
+                        '<p>' + note.content + '<p>' +
+                        '<p class="note-date">' + date.toLocaleString('en-US', { hour12: false }) + '</p>' + 
                     '</li>';
             });
             this.noteList.html( htmlStr );
